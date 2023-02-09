@@ -21,7 +21,7 @@ func SignUp(c *fiber.Ctx) error {
 
 	//Checks if any field is blank
 	if len(data["username"].(string)) == 0 || len(data["password"].(string)) == 0 || len(data["email"].(string)) == 0 ||
-		len(data["name"].(string)) == 0 || len(data["phone"].(string)) == 0 {
+		len(data["name"].(string)) == 0 || len(data["phone"].(string)) == 0 || (data["type"].(float64) == 2) {
 		c.Status(400)
 		return c.JSON(fiber.Map{
 			"message": "Please do not leave any field empty.",

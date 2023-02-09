@@ -9,14 +9,15 @@ import (
 func Setup(app *fiber.App) {
 	app.Post("/api/SignUp", controller.SignUp)
 	app.Post("/api/SignIn", controller.SignIn)
+	app.Get("/api/GetUser", controller.GetUser)
+	app.Post("/api/SignOut", controller.SignOut)
 	// app.Post("/api/CreateCommunity", controller.CreateCommunity)
 	// app.Get("/api/GetCommunities", controller.GetAllCommunities)
 	// app.Post("/api/CreatePost", controller.CreatePost)
 	// app.Get("/api/GetCommunity/:link", controller.GetCommunity)
 	// app.Get("/api/GetCommDetails/:link", controller.GetCommDetails)
-	// app.Get("/api/GetUser", controller.GetUser)
 	// app.Get("/api/GetUserPosts", controller.GetUserPosts)
-	// app.Post("/api/LogOut", controller.LogOut)
+
 	// app.Get("/api/RetrievePost/:id", controller.RetrievePost)
 	// app.Delete("/api/DeletePost/:id", controller.DeletePost)
 	// app.Post("/api/CreateComment", controller.CreateComment)
