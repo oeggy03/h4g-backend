@@ -60,13 +60,13 @@ func GetActivity(c *fiber.Ctx) error {
 	//Retrieve all participant details for the activity.
 	var participants []models.User
 
-	if len(joinerIDs) == 0 {
-		fmt.Println("hello")
-	}
-
-	// SELECT * FROM users WHERE id IN joinerIDs;
-	if err := connect.DB.Find(&participants, joinerIDs); err != nil {
-		fmt.Println("Error retrieving participant details for activity")
+	if len(joinerIDs) != 0 {
+		// SELECT * FROM users WHERE id IN joinerIDs;
+		if err := connect.DB.Find(&participants, joinerIDs); err != nil {
+			fmt.Println("Error retrieving participant details for activity")
+		}
+	} else {
+		participants = []models.User{}
 	}
 
 	//Checks if our user has joined the activity
@@ -75,6 +75,10 @@ func GetActivity(c *fiber.Ctx) error {
 		if joinerIDs[i] == uint(intID) {
 			joined = true
 		}
+	}
+
+	if activity.UserID == uint(intID) {
+		joinerIDs = append(joinerIDs, activity.UserID)
 	}
 
 	c.Status(200)
