@@ -16,6 +16,8 @@ func Setup(app *fiber.App) {
 	app.Get("/api/GetActivity/:id", controller.GetActivity)
 	app.Post("/api/JoinActivity", controller.JoinActivity)
 	app.Delete("/api/LeaveActivity/:id", controller.LeaveActivity)
+	app.Delete("/api/DeleteActivity/:id", controller.DeleteActivity)
+	app.Put("/api/UpdateActivity", controller.UpdateActivity)
 	// app.Post("/api/CreateCommunity", controller.CreateCommunity)
 	// app.Get("/api/GetCommunities", controller.GetAllCommunities)
 	// app.Post("/api/CreatePost", controller.CreatePost)
@@ -24,10 +26,9 @@ func Setup(app *fiber.App) {
 	// app.Get("/api/GetUserPosts", controller.GetUserPosts)
 
 	// app.Get("/api/RetrievePost/:id", controller.RetrievePost)
-	// app.Delete("/api/DeletePost/:id", controller.DeletePost)
+
 	// app.Post("/api/CreateComment", controller.CreateComment)
 	// app.Get("/api/RetrieveComments/:id", controller.RetrieveComments)
-	// app.Put("/api/UpdatePost", controller.UpdatePost)
 
 	// app.Put("/api/UpdateComment", controller.EditComment)
 }
