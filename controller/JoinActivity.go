@@ -36,16 +36,11 @@ func JoinActivity(c *fiber.Ctx) error {
 		fmt.Println("Join Activity: Unable to parse body")
 	}
 
-	//Checks if user is the same person who makes the request
-	if intID != int(data["user_id"].(float64)) {
-		c.Status(fiber.StatusUnauthorized)
-		return c.JSON(fiber.Map{"message": "Unauthorized, please log into your own account"})
-	}
-
+	idActivity, _ := strconv.Atoi(data["activity_id"].(string))
 	//Retrieve the activity details
 	var activity models.Activity
 
-	if err := connect.DB.First(&activity, "id = ?", uint(data["activity_id"].(float64))); err != nil {
+	if err := connect.DB.First(&activity, "id = ?", uint(idActivity)); err != nil {
 		fmt.Println("Error retrieving activity")
 	}
 
@@ -57,7 +52,7 @@ func JoinActivity(c *fiber.Ctx) error {
 	//Check if entry already exists
 	var joinerCheck models.Joiner
 
-	if err := connect.DB.Where(&models.Joiner{ActivityID: uint(data["activity_id"].(float64)), UserID: uint(data["user_id"].(float64))}).First(&joinerCheck); err != nil {
+	if err := connect.DB.Where(&models.Joiner{ActivityID: uint(idActivity), UserID: uint(intID)}).First(&joinerCheck); err != nil {
 		fmt.Println("Error checking joiner info for activity")
 	}
 
@@ -68,8 +63,8 @@ func JoinActivity(c *fiber.Ctx) error {
 
 	//Everything is normal, we can add in the joiner
 	joiner := models.Joiner{
-		UserID:     uint(data["user_id"].(float64)),
-		ActivityID: uint(data["activity_id"].(float64)),
+		UserID:     uint(intID),
+		ActivityID: uint(idActivity),
 	}
 
 	if err := connect.DB.Create(&joiner).Error; err != nil {
