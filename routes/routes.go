@@ -10,6 +10,7 @@ func Setup(app *fiber.App) {
 	app.Post("/api/SignUp", controller.SignUp)
 	app.Post("/api/SignIn", controller.SignIn)
 	app.Get("/api/GetUser", controller.GetUser)
+	app.Get("/api/GetProfile/:id", controller.GetProfile)
 	app.Post("/api/SignOut", controller.SignOut)
 	app.Get("/api/GetActivities", controller.GetActivities)
 	app.Post("/api/CreateActivity", controller.CreateActivity)
