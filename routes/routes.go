@@ -19,6 +19,8 @@ func Setup(app *fiber.App) {
 	app.Delete("/api/LeaveActivity/:id", controller.LeaveActivity)
 	app.Delete("/api/DeleteActivity/:id", controller.DeleteActivity)
 	app.Put("/api/UpdateActivity", controller.UpdateActivity)
+	app.Post("/api/CreateComment", controller.CreateComment)
+	app.Delete("/api/DeleteComment/:id", controller.DeleteComment)
 	// app.Post("/api/CreateCommunity", controller.CreateCommunity)
 	// app.Get("/api/GetCommunities", controller.GetAllCommunities)
 	// app.Post("/api/CreatePost", controller.CreatePost)

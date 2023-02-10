@@ -11,8 +11,7 @@ import (
 	"github.com/oeggy03/h4g-backend/util"
 )
 
-func CreateActivity(c *fiber.Ctx) error {
-	//This section makes sure that only users who are logged in can make posts
+func CreateComment(c *fiber.Ctx) error {
 	cookie := c.Cookies("jwt")
 
 	token, err := jwt.ParseWithClaims(cookie, &jwt.StandardClaims{}, func(t *jwt.Token) (interface{}, error) {
@@ -29,36 +28,36 @@ func CreateActivity(c *fiber.Ctx) error {
 
 	//Access issuer through claims.Issuer
 	claims := token.Claims.(*jwt.StandardClaims)
-	intID, _ := strconv.Atoi(claims.Issuer) //this is the userID (integer)
+	intUserID, _ := strconv.Atoi(claims.Issuer)
 
-	var data map[string]interface{}
+	var data map[string]string
 
 	if err := c.BodyParser(&data); err != nil {
 		fmt.Println("Create Post: Unable to parse body")
 	}
 
-	//Retrieve the creator's details
-	var userDetails models.User
-	if err := connect.DB.Find(&userDetails, "id = ?", intID); err != nil {
-		fmt.Println("Error retrieving user details")
+	intActivityID, _ := strconv.Atoi(data["activity_id"])
+
+	//To assign the creator username to comment
+	var creator models.User
+	connect.DB.Where("id = ?", claims.Issuer).First(&creator)
+
+	comment := models.Comment{
+		Content:    data["content"],
+		ActivityID: uint(intActivityID),
+		UserID:     uint(intUserID),
+		Creator:    creator.Username,
 	}
 
-	Activity := models.Activity{
-		Name:        data["name"].(string),
-		Desc:        data["desc"].(string),
-		Location:    data["location"].(string),
-		CreatorType: userDetails.Type,
-		UserID:      uint(intID),
-	}
-
-	//Creates the activity entry in the db
-	if err := connect.DB.Create(&Activity).Error; err != nil {
+	if err := connect.DB.Create(&comment).Error; err != nil {
 		c.Status(400)
 		return c.JSON(fiber.Map{
-			"message": "Create Activity: Invalid payload",
+			"message": "Create Comment: Invalid payload",
 		})
 	}
 
 	c.Status(200)
-	return c.JSON(Activity)
+	return c.JSON(fiber.Map{
+		"message": "success",
+	})
 }

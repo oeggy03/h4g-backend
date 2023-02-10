@@ -45,11 +45,12 @@ func GetActivity(c *fiber.Ctx) error {
 	}
 
 	//Retrieve the activity's creator
-	var user string
+	var user models.User
 
-	if err := connect.DB.Table("users").Select("username").Where("id = ?", activity.UserID).Find(&user); err != nil {
+	if err := connect.DB.First(&user, "id = ?", activity.UserID); err != nil {
 		fmt.Println("Error retrieving creator for activity")
 	}
+	fmt.Println("hello")
 
 	//Retrieve the ID of the joiners for the activity
 	var joinerIDs []uint
@@ -77,17 +78,21 @@ func GetActivity(c *fiber.Ctx) error {
 		}
 	}
 
-	if activity.UserID == uint(intID) {
-		joinerIDs = append(joinerIDs, activity.UserID)
+	//Retrieve the comments
+	//.Order("id desc") add in front of .Find for descending
+	var comments []models.Comment
+	if err := connect.DB.Order("id desc").Find(&comments, "activity_id = ?", activity.ID); err != nil {
+		fmt.Println("Error retrieving comments for activity")
 	}
 
 	c.Status(200)
 	return c.JSON(fiber.Map{
-		"creator":      user,
+		"creator":      user.Username,
 		"activity":     activity,
 		"participants": participants,
 		"owner":        activity.UserID == uint(intID),
 		"joined":       joined,
+		"comments":     comments,
 		"message":      "Success retrieving activity!",
 	})
 }
