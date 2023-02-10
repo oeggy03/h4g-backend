@@ -10,9 +10,15 @@ func Setup(app *fiber.App) {
 	app.Post("/api/SignUp", controller.SignUp)
 	app.Post("/api/SignIn", controller.SignIn)
 	app.Get("/api/GetUser", controller.GetUser)
+	app.Get("/api/GetProfile/:id", controller.GetProfile)
 	app.Post("/api/SignOut", controller.SignOut)
 	app.Get("/api/GetActivities", controller.GetActivities)
 	app.Post("/api/CreateActivity", controller.CreateActivity)
+	app.Get("/api/GetActivity/:id", controller.GetActivity)
+	app.Post("/api/JoinActivity", controller.JoinActivity)
+	app.Delete("/api/LeaveActivity/:id", controller.LeaveActivity)
+	app.Delete("/api/DeleteActivity/:id", controller.DeleteActivity)
+	app.Put("/api/UpdateActivity", controller.UpdateActivity)
 	// app.Post("/api/CreateCommunity", controller.CreateCommunity)
 	// app.Get("/api/GetCommunities", controller.GetAllCommunities)
 	// app.Post("/api/CreatePost", controller.CreatePost)
@@ -21,10 +27,9 @@ func Setup(app *fiber.App) {
 	// app.Get("/api/GetUserPosts", controller.GetUserPosts)
 
 	// app.Get("/api/RetrievePost/:id", controller.RetrievePost)
-	// app.Delete("/api/DeletePost/:id", controller.DeletePost)
+
 	// app.Post("/api/CreateComment", controller.CreateComment)
 	// app.Get("/api/RetrieveComments/:id", controller.RetrieveComments)
-	// app.Put("/api/UpdatePost", controller.UpdatePost)
-	// app.Delete("/api/DeleteComment/:id", controller.DeleteComment)
+
 	// app.Put("/api/UpdateComment", controller.EditComment)
 }
