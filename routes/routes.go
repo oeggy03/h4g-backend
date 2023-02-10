@@ -24,7 +24,6 @@ func Setup(app *fiber.App) {
 	// app.Post("/api/CreatePost", controller.CreatePost)
 	// app.Get("/api/GetCommunity/:link", controller.GetCommunity)
 	// app.Get("/api/GetCommDetails/:link", controller.GetCommDetails)
-	// app.Get("/api/GetUserPosts", controller.GetUserPosts)
 
 	// app.Get("/api/RetrievePost/:id", controller.RetrievePost)
 

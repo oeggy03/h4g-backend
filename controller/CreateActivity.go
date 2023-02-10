@@ -59,6 +59,18 @@ func CreateActivity(c *fiber.Ctx) error {
 		})
 	}
 
+	//add creator as joiner
+	joiner := models.Joiner{
+		UserID:     uint(intID),
+		ActivityID: uint(Activity.ID),
+	}
+
+	if err := connect.DB.Create(&joiner).Error; err != nil {
+		c.Status(400)
+		return c.JSON(fiber.Map{
+			"message": "Add activity joiner: Invalid payload",
+		})
+	}
 	c.Status(200)
 	return c.JSON(Activity)
 }
