@@ -61,7 +61,7 @@ func GetActivity(c *fiber.Ctx) error {
 	var participants []models.User
 
 	if len(joinerIDs) == 0 {
-		joinerIDs = []uint{0}
+		fmt.Println("hello")
 	}
 
 	// SELECT * FROM users WHERE id IN joinerIDs;
@@ -71,8 +71,8 @@ func GetActivity(c *fiber.Ctx) error {
 
 	//Checks if our user has joined the activity
 	var joined bool = false
-	for s := range joinerIDs {
-		if s == intID {
+	for i := range joinerIDs {
+		if joinerIDs[i] == uint(intID) {
 			joined = true
 		}
 	}
