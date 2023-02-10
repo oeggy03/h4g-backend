@@ -60,6 +60,7 @@ func SignUp(c *fiber.Ctx) error {
 
 	user := models.User{
 		Username:    data["username"].(string),
+		Name:        data["name"].(string),
 		Email:       strings.TrimSpace(data["email"].(string)),
 		PhoneNumber: strings.TrimSpace(data["phone"].(string)),
 		Type:        uint(data["type"].(float64)),

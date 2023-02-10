@@ -10,34 +10,21 @@ import (
 	"github.com/oeggy03/h4g-backend/util"
 )
 
-func GetProfile(c *fiber.Ctx) error {
+func GetUserActivities(c *fiber.Ctx) error {
 	profileID1, _ := strconv.Atoi(c.Params("id"))
 	profileID := uint(profileID1)
 
-	//makes sure that user has signed in
 	cookie := c.Cookies("jwt")
 
-	_, err := jwt.ParseWithClaims(cookie, &jwt.StandardClaims{}, func(t *jwt.Token) (interface{}, error) {
+	token, err := jwt.ParseWithClaims(cookie, &jwt.StandardClaims{}, func(t *jwt.Token) (interface{}, error) {
 		return []byte(util.SecretKey), nil
 	})
 
 	//error handling
-	if err != nil {
+	if err != nil || !token.Valid {
 		c.Status(fiber.StatusUnauthorized)
 		return c.JSON(fiber.Map{
 			"message": "Unauthenticated",
-		})
-	}
-
-	var profile models.User
-
-	//Find that user
-	connect.DB.Where("id = ?", profileID).First(&profile)
-
-	if profile.ID == 0 {
-		c.Status(400)
-		return c.JSON(fiber.Map{
-			"message": "Sorry, user not found.",
 		})
 	}
 
@@ -48,9 +35,5 @@ func GetProfile(c *fiber.Ctx) error {
 	connect.DB.Where("user_id = ?", profileID).Find(&activities)
 
 	c.Status(200)
-	return c.JSON(fiber.Map{
-		"message":    "User found",
-		"profile":    profile,
-		"activities": activities,
-	})
+	return c.JSON(activities)
 }
