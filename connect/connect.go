@@ -34,5 +34,7 @@ func Connect() {
 	//Once this is done, the table users will be created
 	database.AutoMigrate(
 		&models.User{},
+		&models.Activity{},
+		&models.Joiner{},
 	)
 }
