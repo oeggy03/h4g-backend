@@ -17,6 +17,9 @@ The backend was built with Go, and uses jwt tokens for authentication and securi
 
 For many of the functions, the backend checks that the user is signed in / the correct user before sending back any information.
 
+## Our presentation slides
+https://bit.ly/h4gbuddy4g
+
 ## Set-up instructions
 **Notes:**
 
