@@ -11,9 +11,7 @@ import (
 	"github.com/oeggy03/h4g-backend/util"
 )
 
-func DeleteComment(c *fiber.Ctx) error {
-	commentID, _ := strconv.Atoi(c.Params("id"))
-
+func UpdateComment(c *fiber.Ctx) error {
 	cookie := c.Cookies("jwt")
 
 	//We need the token to verify that the user is indeed the creator of the comment
@@ -32,28 +30,39 @@ func DeleteComment(c *fiber.Ctx) error {
 	//Access issuer through claims.Issuer
 	claims := token.Claims.(*jwt.StandardClaims)
 
-	var testComment models.Comment
-	//Find the comment with given comment id
-	if err := connect.DB.Find(&testComment, "id = ?", commentID); err != nil {
+	var data map[string]interface{}
+
+	err = c.BodyParser(&data)
+
+	if err != nil {
+		fmt.Println("Unable to parse body")
+	}
+
+	//Retrieves comment. Checks if comment is created by user
+	var targetComment models.Comment
+	var intCommentID = data["id"].(float64)
+	if err := connect.DB.Find(&targetComment, "id = ?", intCommentID); err != nil {
 		fmt.Println("Error retrieving comment")
 	}
 
 	intUserID, _ := strconv.Atoi(claims.Issuer)
 
-	if int(testComment.UserID) != intUserID {
-		c.Status(fiber.StatusUnauthorized)
+	if int(targetComment.UserID) != intUserID {
+		c.JSON(fiber.StatusUnauthorized)
 		return c.JSON(fiber.Map{
 			"message": "You are not the creator of this comment.",
 		})
 	}
 
-	//Deletes the comment
-	var commentFormat models.Comment
+	targetComment.Content = data["content"].(string)
 
-	connect.DB.Delete(&commentFormat, commentID)
+	//Updates comment to MySQL
+	if err := connect.DB.Save(&targetComment); err != nil {
+		fmt.Println("Error saving updated comment")
+	}
+
 	c.Status(200)
 	return c.JSON(fiber.Map{
-		"message": "Comment deleted successfully",
+		"message": "Comment updated successfully.",
 	})
-
 }

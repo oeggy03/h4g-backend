@@ -87,6 +87,7 @@ func GetActivity(c *fiber.Ctx) error {
 
 	c.Status(200)
 	return c.JSON(fiber.Map{
+		"user_id":      intID,
 		"creator":      user.Username,
 		"activity":     activity,
 		"participants": participants,

@@ -21,16 +21,11 @@ func Setup(app *fiber.App) {
 	app.Put("/api/UpdateActivity", controller.UpdateActivity)
 	app.Post("/api/CreateComment", controller.CreateComment)
 	app.Delete("/api/DeleteComment/:id", controller.DeleteComment)
-	// app.Post("/api/CreateCommunity", controller.CreateCommunity)
-	// app.Get("/api/GetCommunities", controller.GetAllCommunities)
-	// app.Post("/api/CreatePost", controller.CreatePost)
-	// app.Get("/api/GetCommunity/:link", controller.GetCommunity)
-	// app.Get("/api/GetCommDetails/:link", controller.GetCommDetails)
+	app.Put("/api/UpdateComment", controller.UpdateComment)
 
 	// app.Get("/api/RetrievePost/:id", controller.RetrievePost)
 
 	// app.Post("/api/CreateComment", controller.CreateComment)
 	// app.Get("/api/RetrieveComments/:id", controller.RetrieveComments)
 
-	// app.Put("/api/UpdateComment", controller.EditComment)
 }
