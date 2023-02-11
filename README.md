@@ -12,7 +12,7 @@ However, there is no lack of helpful, kind-hearted people in Singapore. Yet, the
 
 **Buddy4Good** is a platform for both persons with disabilities and able-bodied persons to connect with each other. Buddy4Good encourages the buddying up of able-bodied people (Best Buddy) with disabled people (Special Friend) to spend time doing activities together. These may be workshops, exercising, bird-watching, or any interest either party may have.
 
-##About the backend
+## About the backend
 The backend was built with Go, and uses jwt tokens for authentication and security. The password is encrypted with bcrypt before being stored in the database to improve the backend security.
 
 For many of the functions, the backend checks that the user is signed in / the correct user before sending back any information.
