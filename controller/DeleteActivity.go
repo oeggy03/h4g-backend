@@ -53,6 +53,10 @@ func DeleteActivity(c *fiber.Ctx) error {
 	var joinerFormat models.Joiner
 	connect.DB.Where("activity_id = ?", activityID).Delete(&joinerFormat)
 
+	//To prevent the foreign key constraint - cannot delete parent row error, we need to delete the activity' comments first
+	var commentFormat models.Comment
+	connect.DB.Where("activity_id = ?", activityID).Delete(&commentFormat)
+
 	//Now we delete from activities
 	connect.DB.Delete(&activityFormat, activityID)
 	c.Status(200)

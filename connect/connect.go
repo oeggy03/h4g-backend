@@ -36,5 +36,6 @@ func Connect() {
 		&models.User{},
 		&models.Activity{},
 		&models.Joiner{},
+		&models.Comment{},
 	)
 }
