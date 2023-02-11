@@ -14,12 +14,12 @@ func GetActivities(c *fiber.Ctx) error {
 
 	//retrieving all activities by "disabled" people
 	if err := connect.DB.Find(&disaAct, "creator_type = ?", 0); err != nil {
-		fmt.Println("Error retrieving activities by disabled people")
+		fmt.Println("Error retrieving activities by special friends")
 	}
 
-	//retrieving all activities by "disabled" people
+	//retrieving all activities by "not disabled" people
 	if err := connect.DB.Find(&enaAct, "creator_type = ?", 1); err != nil {
-		fmt.Println("Error retrieving activities by able-bodied people")
+		fmt.Println("Error retrieving activities by best buddies")
 	}
 
 	return (c.JSON(fiber.Map{
