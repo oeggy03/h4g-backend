@@ -12,6 +12,12 @@ However, there is no lack of helpful, kind-hearted people in Singapore. Yet, the
 
 **Buddy4Good** is a platform for both persons with disabilities and able-bodied persons to connect with each other. Buddy4Good encourages the buddying up of able-bodied people (Best Buddy) with disabled people (Special Friend) to spend time doing activities together. These may be workshops, exercising, bird-watching, or any interest either party may have.
 
+##Set-up instructions##
+**Notes:**
+
+- All of this was set up on a Windows PC. If you are using another OS, I apologise but I will not be able to give specific instructions for it.
+- We have the frontend and backend in separate repos.
+- Frontend: https://github.com/oeggy03/h4g-frontend Backend(this repo): https://github.com/oeggy03/h4g-backend
 
 ## Set-up for backend
 
@@ -35,23 +41,3 @@ Note that the frontend at https://github.com/oeggy03/h4g-frontend has to be set 
 
 - Host the database on Google Cloud SQL rather than MySQL for easier setup
 - Badges and a point system for people who create or join many activities
-
-Buddy4Good
-
-
-Set-up instructions
-Notes:
-
-All of this was set up on a Windows PC. If you are using another OS, I apologise but I will not be able to give specific instructions for it.
-We have the frontend and backend in separate repos.
-Frontend: https://github.com/oeggy03/h4g-frontend Backend: https://github.com/oeggy03/h4g-backend
-
-Set-up for backend
-
-Install Go, MySQL server and MySQL workbench
-Clone the backend repo
-Using the terminal, run go mod tidy in the project directory
-Create the database "h4g_db" locally using MySQL. (Run CREATE DATABASE h4g_db)
-Change the username and password in the .env file to your own for the MySQL server
-(Optional) In the "SQLfile" folder, there are 4 .sql files. You can choose to run them in MySQL workbench to get a pre-made set of users, comments and activities. Otherwise, you will have to create accounts, posts and comments on your own.
-Using the terminal, run go run main.go. You may get a popup from Windows Defender, click agree. (Note: if this step fails, it may be because of your antivirus / firewall)
