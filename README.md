@@ -26,7 +26,7 @@ However, there is no lack of helpful, kind-hearted people in Singapore. Yet, the
 3. Using the terminal, run ```go mod tidy``` in the project directory
 4. Create the database "h4g_db" locally using MySQL. (Run CREATE DATABASE h4g_db)
 5. Change the username and password in the .env file to your own for the MySQL server
-6. (Optional) In the "SQLfile" folder, there are 4 .sql files. You can choose to run them in MySQL workbench to get a pre-made set of users, comments and activities. 7. Otherwise, you will have to create accounts, posts and comments on your own.
+6. (Optional) In the "SQLfile" folder, there are 4 .sql files. You can choose to run them in MySQL workbench to get a pre-made set of users, comments and activities. Otherwise, you will have to create accounts, posts and comments on your own.
 8. Using the terminal, run go ```run main.go```. You may get a popup from Windows Defender, click agree. (Note: if this step fails, it may be because of your antivirus / firewall)
 
 
