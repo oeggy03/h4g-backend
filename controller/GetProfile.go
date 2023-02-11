@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"fmt"
 	"strconv"
 
 	"github.com/dgrijalva/jwt-go"
@@ -47,10 +48,29 @@ func GetProfile(c *fiber.Ctx) error {
 	//Find the user's created activities
 	connect.DB.Where("user_id = ?", profileID).Find(&activities)
 
+	//Retrieve joiners where user_id = user
+	var joinedActIDs []uint
+	if err := connect.DB.Table("joiners").Select("activity_id").Where("user_id = ?", profileID).Find(&joinedActIDs); err != nil {
+		fmt.Println("Error retrieving joiners for activity")
+	}
+
+	//Find user's joined activities
+	var activitiesJoined []models.Activity
+
+	if len(joinedActIDs) != 0 {
+		// SELECT * FROM users WHERE id IN ;
+		if err := connect.DB.Find(&activitiesJoined, joinedActIDs); err != nil {
+			fmt.Println("Error retrieving activities joined for user")
+		}
+	} else {
+		activities = []models.Activity{}
+	}
+
 	c.Status(200)
 	return c.JSON(fiber.Map{
-		"message":    "User found",
-		"profile":    profile,
-		"activities": activities,
+		"message":            "User found",
+		"profile":            profile,
+		"activities_created": activities,
+		"activities_joined":  activitiesJoined,
 	})
 }
