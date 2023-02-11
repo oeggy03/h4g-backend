@@ -63,7 +63,7 @@ func GetProfile(c *fiber.Ctx) error {
 			fmt.Println("Error retrieving activities joined for user")
 		}
 	} else {
-		activities = []models.Activity{}
+		activitiesJoined = []models.Activity{}
 	}
 
 	c.Status(200)

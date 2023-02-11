@@ -22,10 +22,4 @@ func Setup(app *fiber.App) {
 	app.Post("/api/CreateComment", controller.CreateComment)
 	app.Delete("/api/DeleteComment/:id", controller.DeleteComment)
 	app.Put("/api/UpdateComment", controller.UpdateComment)
-
-	// app.Get("/api/RetrievePost/:id", controller.RetrievePost)
-
-	// app.Post("/api/CreateComment", controller.CreateComment)
-	// app.Get("/api/RetrieveComments/:id", controller.RetrieveComments)
-
 }

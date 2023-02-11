@@ -37,6 +37,13 @@ func CreateActivity(c *fiber.Ctx) error {
 		fmt.Println("Create Post: Unable to parse body")
 	}
 
+	if len(data["name"].(string)) == 0 || len(data["desc"].(string)) == 0 || len(data["location"].(string)) == 0 {
+		c.Status(400)
+		return c.JSON(fiber.Map{
+			"message": "Create Activity: Please do not leave any blank fields!",
+		})
+	}
+
 	//Retrieve the creator's details
 	var userDetails models.User
 	if err := connect.DB.Find(&userDetails, "id = ?", intID); err != nil {
@@ -46,6 +53,7 @@ func CreateActivity(c *fiber.Ctx) error {
 	Activity := models.Activity{
 		Name:        data["name"].(string),
 		Desc:        data["desc"].(string),
+		Time:        data["time"].(string),
 		Location:    data["location"].(string),
 		CreatorType: userDetails.Type,
 		UserID:      uint(intID),
