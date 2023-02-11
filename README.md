@@ -1,6 +1,6 @@
 # Buddy4Good
 
-The problem statement that we have chosen to tackle is:
+###Problem Statement:###
 
 *"How might we, as a community empower, equip and co-create with persons with disabilities to enable them to access, use and enjoy places, services, produces and/or information, whether physical or virtual, so that persons with disabilities can connect to and be included in the wider community?"*
 
